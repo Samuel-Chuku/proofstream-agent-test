@@ -1,0 +1,9 @@
+{
+  "name": "proofstream-agent-test",
+  "private": true,
+  "type": "module",
+  "description": "A deliberately dependency-free module for exercising the ProofStream agent.",
+  "scripts": {
+    "test": "node --test src/*.test.ts"
+  }
+}
