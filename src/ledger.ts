@@ -14,6 +14,8 @@ export type TransferRecord = {
   timestamp: number;
 };
 
+// Reading a balance is just a field access today. Kept as a function so the
+// storage can change without every caller changing with it.
 export function balanceOf(account: Account): number {
   return account.balance;
 }
