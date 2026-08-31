@@ -46,3 +46,23 @@ export function transfer(
 export function history(records: TransferRecord[], accountId: string): TransferRecord[] {
   return records.filter((r) => r.from === accountId || r.to === accountId);
 }
+
+/// What an account's balance was at an earlier point in time.
+///
+/// Replays the transfer log from an opening balance rather than storing a
+/// snapshot on each record. Both are reasonable; this one keeps `TransferRecord`
+/// unchanged, which matters because `history` already returns them.
+export function balanceAt(
+  records: TransferRecord[],
+  accountId: string,
+  at: number,
+  opening = 0,
+): number {
+  let balance = opening;
+  for (const r of records) {
+    if (r.timestamp > at) continue;
+    if (r.from === accountId) balance -= r.amount;
+    if (r.to === accountId) balance += r.amount;
+  }
+  return balance;
+}
